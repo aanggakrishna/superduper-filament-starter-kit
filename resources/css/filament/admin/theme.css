@@ -20,25 +20,38 @@
 @config 'tailwind.config.js';
 
 
-/* GLOBAL STYLES */
+/* GLOBAL STYLES - Green Booking/Reservation Theme */
 :root {
-  --sidebar-width: 280px;
+  --sidebar-width: 260px;
   --transition-speed: 0.2s;
-  --primary-rgb: 45, 43, 141; /* #2D2B8D */
-  --secondary-rgb: 255, 201, 3; /* #FFC903 */
-  --gray-rgb: 195, 203, 214;        /* #C3CBD6 */
-  --success-rgb: 22, 198, 12;       /* #16C60C */
-  --danger-rgb: 215, 38, 61;        /* #D7263D */
+  
+  /* Primary Colors - Green Theme */
+  --primary-rgb: 22, 163, 74;       /* #16A34A - Main green */
+  --primary-light-rgb: 34, 197, 94; /* #22C55E */
+  --primary-dark-rgb: 21, 128, 61;  /* #15803D */
+  
+  /* Secondary Colors - Gray */
+  --secondary-rgb: 120, 113, 108;   /* #78716C */
+  
+  /* Accent Colors */
+  --accent-rgb: 249, 115, 22;       /* #F97316 - Orange */
+  
+  /* System Colors */
+  --gray-rgb: 156, 163, 175;        /* #9CA3AF */
+  --success-rgb: 16, 185, 129;      /* #10B981 */
+  --danger-rgb: 239, 68, 68;        /* #EF4444 */
   --info-rgb: 59, 130, 246;         /* #3B82F6 */
-  --warning-rgb: 255, 201, 3;       /* #FFC903 */
-  --primary-gradient: linear-gradient(145deg, #524ED5, #2D2B8D);
-  --secondary-gradient: linear-gradient(145deg, #FFD333, #FFC903);
-  --hover-gradient: linear-gradient(145deg, rgba(var(--primary-rgb), 0.08), rgba(var(--secondary-rgb), 0.08));
-  --dark-hover-gradient: linear-gradient(145deg, rgba(var(--primary-rgb), 0.15), rgba(var(--secondary-rgb), 0.05));
+  --warning-rgb: 245, 158, 11;      /* #F59E0B */
+  
+  /* Gradients */
+  --primary-gradient: linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74));
+  --secondary-gradient: linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12));
+  --hover-gradient: linear-gradient(135deg, rgba(22, 163, 74, 0.08), rgba(34, 197, 94, 0.08));
+  --dark-hover-gradient: linear-gradient(135deg, rgba(22, 163, 74, 0.15), rgba(21, 128, 61, 0.05));
 }
 
 body {
-  @apply antialiased;
+  @apply antialiased font-sans;
 }
 
 /* TYPOGRAPHY */
@@ -64,23 +77,47 @@ body {
   background: #111827;
 }
 
+/* Stats Widget - Green Theme */
 .fi-wi-stats-overview-stat {
-  @apply hover:shadow-md dark:hover:border-primary-800/30;
-  border-top: 3px solid rgba(var(--secondary-rgb), 0.8);
+  @apply hover:shadow-md hover:-translate-y-0.5;
+  border-top: 3px solid rgb(var(--primary-rgb));
+  transition: all 0.3s ease;
+}
+
+.fi-wi-stats-overview-stat:hover {
+  border-top-width: 4px;
+  box-shadow: 0 4px 14px rgba(var(--primary-rgb), 0.15);
+}
+
+.dark .fi-wi-stats-overview-stat:hover {
+  box-shadow: 0 4px 14px rgba(var(--primary-rgb), 0.25);
 }
 
 .fi-wi-stats-overview-stat-description {
-  @apply text-sm text-gray-500 dark:text-gray-400;
+  @apply text-sm text-gray-500 dark:text-gray-400 font-medium;
 }
 
 .fi-wi-stats-overview-stat-value {
-  @apply text-2xl font-bold text-primary-800 dark:text-primary-300;
+  @apply text-2xl font-bold;
+  color: rgb(var(--primary-rgb));
+}
+
+.dark .fi-wi-stats-overview-stat-value {
+  color: rgb(var(--primary-light-rgb));
+}
+
+.fi-wi-stats-overview-stat-icon {
+  color: rgb(var(--primary-rgb));
+}
+
+.dark .fi-wi-stats-overview-stat-icon {
+  color: rgb(var(--primary-light-rgb));
 }
 
 /* RESPONSIVE ADJUSTMENTS */
 @media (max-width: 768px) {
   .fi-sidebar.fi-sidebar-open {
-    @apply fixed z-40 w-[280px] shadow-xl;
+    @apply fixed z-40 w-[260px] shadow-xl;
     box-shadow: 0 0 25px rgba(var(--primary-rgb), 0.15);
   }
 
@@ -89,7 +126,7 @@ body {
   }
 }
 
-/* TABS */
+/* TABS - Green Theme */
 .fi-tabs {
   @apply border-b border-gray-200 dark:border-gray-800;
 }
@@ -100,12 +137,21 @@ body {
 
 /* Improved Tabs Hover */
 .fi-tabs-item:not(.fi-tabs-item-active):hover {
-    @apply border-t-2 border-t-secondary-500 text-primary-700 dark:text-primary-400 relative;
-  box-shadow: inset 0 1px 0 rgba(var(--secondary-rgb), 0.3);
+  color: rgb(var(--primary-rgb));
+  border-top: 2px solid rgb(var(--primary-rgb));
+  @apply relative;
+  box-shadow: inset 0 1px 0 rgba(var(--primary-rgb), 0.2);
 }
 
 .fi-tabs-item-active {
-  @apply border-t-2 border-t-secondary-500 text-primary-700 dark:text-primary-400 relative;
+  color: rgb(var(--primary-rgb));
+  border-top: 2px solid rgb(var(--primary-rgb));
+  @apply relative;
+  font-weight: 600;
+}
+
+.dark .fi-tabs-item-active {
+  color: rgb(var(--primary-light-rgb));
 }
 
 .fi-tabs-item-active::after {
@@ -114,7 +160,7 @@ body {
   bottom: -1px;
   left: 0;
   right: 0;
-  height: 1px;
+  height: 2px;
   background-color: white;
 }
 

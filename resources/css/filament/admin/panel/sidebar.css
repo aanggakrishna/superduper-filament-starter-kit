@@ -4,7 +4,7 @@
 
 /* Logo */
 .fi-logo {
-  @apply !h-10 transition-all duration-300 hover:scale-105;
+  @apply !h-9 transition-all duration-300 hover:scale-105;
 }
 
 .fi-sidebar-header > div[x-show] {
@@ -18,29 +18,67 @@
     justify-content: center !important;
 }
 
-/* SIDEBAR */
+/* SIDEBAR - Green Theme */
 .fi-sidebar {
   @apply transition-all duration-300 ease-in-out;
-  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.02) 0%, rgba(var(--primary-rgb), 0.05) 100%);
+  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.03) 0%, rgba(var(--primary-rgb), 0.06) 100%);
+  /* Responsive width */
+  width: var(--sidebar-width);
 }
 
 .dark .fi-sidebar {
-  background: linear-gradient(180deg, #181A20 0%, #23263A 100%);
+  background: linear-gradient(180deg, #0F1419 0%, #1A2027 100%);
+}
+
+/* Mobile responsiveness - Overlay behavior */
+@media (max-width: 1024px) {
+  .fi-sidebar {
+    @apply fixed inset-y-0 start-0 z-50;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(var(--primary-rgb), 0.1);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .dark .fi-sidebar {
+    background: rgba(15, 20, 25, 0.98) !important;
+    border-right: 1px solid rgba(var(--primary-rgb), 0.3);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .fi-sidebar {
+    width: 280px !important;
+  }
+  
+  .fi-sidebar.fi-sidebar-open {
+    width: 280px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .fi-sidebar {
+    width: 260px !important;
+  }
+  
+  .fi-sidebar.fi-sidebar-open {
+    width: 260px !important;
+  }
 }
 
 .fi-sidebar.fi-sidebar-open {
-  width: var(--sidebar-width);
-  @apply border-r border-gray-100/50 dark:border-gray-800/50;
+  @apply border-r border-gray-200 dark:border-gray-800;
 }
 
 .fi-sidebar-header {
   @apply py-4 !ring-0 !shadow-none sticky top-0 z-10;
-  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.02) 0%, rgba(var(--primary-rgb), 0.05) 100%);
+  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.03) 0%, rgba(255, 255, 255, 0.95) 100%);
   border-bottom: 1px solid rgba(var(--primary-rgb), 0.1);
 }
 
 .dark .fi-sidebar-header {
-  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.1) 0%, rgba(15, 15, 20, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.1) 0%, rgba(15, 20, 25, 0.95) 100%);
   border-bottom: 1px solid rgba(var(--primary-rgb), 0.2);
 }
 
@@ -58,19 +96,52 @@
 }
 
 .fi-sidebar-nav-groups {
-  @apply gap-y-6 px-3 py-4;
+  @apply gap-y-5 px-2.5 py-3;
+}
+
+/* Responsive adjustments for sidebar navigation */
+@media (max-width: 768px) {
+  .fi-sidebar-nav-groups {
+    @apply px-2 py-2 gap-y-3;
+  }
+}
+
+@media (max-width: 640px) {
+  .fi-sidebar-nav-groups {
+    @apply px-1.5 py-1.5 gap-y-2;
+  }
 }
 
 .fi-sidebar-group {
-  @apply space-y-1.5;
+  @apply space-y-1;
 }
 
 .fi-sidebar-group-items {
-    @apply gap-y-2;
+    @apply gap-y-1.5;
+}
+
+/* Responsive group items */
+@media (max-width: 768px) {
+  .fi-sidebar-group-items {
+    @apply gap-y-1;
+  }
 }
 
 .fi-sidebar-group-label {
-  @apply text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider px-4 mb-2;
+  @apply text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider px-3 mb-1.5;
+}
+
+/* Responsive group labels */
+@media (max-width: 768px) {
+  .fi-sidebar-group-label {
+    @apply px-2 text-xs mb-1;
+  }
+}
+
+@media (max-width: 640px) {
+  .fi-sidebar-group-label {
+    @apply px-1.5 text-xs mb-0.5;
+  }
 }
 
 .dark .fi-sidebar-group-label {
@@ -79,8 +150,21 @@
 
 /* SIDEBAR ITEMS */
 .fi-sidebar-item a {
-  @apply px-4 py-2.5 rounded-xl flex items-center gap-x-3 transition-all duration-300;
+  @apply px-3 py-2 rounded-xl flex items-center gap-x-2.5 transition-all duration-300;
   border-left: 2px solid transparent;
+}
+
+/* Responsive sidebar items */
+@media (max-width: 768px) {
+  .fi-sidebar-item a {
+    @apply px-2 py-2 gap-x-2;
+  }
+}
+
+@media (max-width: 640px) {
+  .fi-sidebar-item a {
+    @apply px-1.5 py-1.5 gap-x-1.5;
+  }
 }
 
 .fi-sidebar-item a > span,
@@ -186,5 +270,40 @@
 .dark .fi-sidebar-item-active a > span,
 .dark .fi-sidebar-item-active a > svg {
   @apply text-white;
+}
+
+/* Mobile sidebar collapse button - Make it visible on mobile */
+@media (max-width: 1024px) {
+  .fi-sidebar .fi-icon-btn[x-show*="sidebar.isOpen"] {
+    @apply flex !important;
+  }
+}
+
+/* Ensure sidebar overlay covers full screen on mobile */
+@media (max-width: 1024px) {
+  .fi-sidebar.fi-sidebar-open {
+    @apply translate-x-0;
+    width: 280px !important;
+  }
+  
+  /* Close button positioning for mobile */
+  .fi-sidebar-header .fi-icon-btn:last-child {
+    @apply flex lg:hidden;
+  }
+}
+
+/* Mobile backdrop overlay */
+.fi-sidebar-backdrop {
+  @apply fixed inset-0 bg-black/50 z-40 lg:hidden;
+  backdrop-filter: blur(2px);
+}
+
+/* Hamburger button styling for mobile */
+.fi-topbar .fi-sidebar-open-btn {
+  @apply lg:hidden;
+}
+
+.fi-topbar .fi-sidebar-open-btn .fi-btn {
+  @apply bg-white hover:bg-gray-50 border border-gray-300 shadow-sm;
 }
 

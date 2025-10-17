@@ -1,8 +1,8 @@
-<header class="fixed z-50 w-full py-4 transition-all duration-300 bg-transparent md:py-6" role="banner">
+<header class="fixed z-50 w-full py-3 transition-all duration-300 bg-white/80 backdrop-blur-md shadow-soft md:py-4" role="banner">
     <div class="px-4 mx-auto container-default">
         <div class="flex items-center justify-between gap-x-4 md:gap-x-8">
             <!-- Header Logo -->
-            <a href="{{ route('home') }}" class="relative z-10 flex-shrink-0" aria-label="Go to homepage">
+            <a href="{{ route('home') }}" class="relative z-10 flex-shrink-0 transition-transform hover:scale-105" aria-label="Go to homepage">
                 @php
                     $brandLogo = $siteSettings->logo ?? null;
                     $brandName = $generalSettings->brand_name ?? $siteSettings->name ?? config('app.name', 'SuperDuper');
@@ -14,30 +14,35 @@
                          class="w-auto h-10 md:h-12"
                     />
                 @else
-                    <div class="flex items-center">
-                        <span class="text-xl font-bold md:text-2xl text-primary-800 dark:text-white header-brand-text">{{ $brandName }}</span>
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-green">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold text-transparent md:text-2xl font-display text-gradient-green header-brand-text">{{ $brandName }}</span>
                     </div>
                 @endif
             </a>
 
             <!-- Header Navigation -->
             <div class="menu-block-wrapper lg:static">
-                <div class="fixed inset-0 z-40 menu-overlay bg-primary-900/70 backdrop-blur-sm lg:hidden" style="display: none;" aria-hidden="true"></div>
-                <nav class="menu-block fixed top-0 right-0 bottom-0 w-[280px] text-secondary-600 md:w-[320px] bg-primary-600 dark:bg-primary-800 z-50 shadow-2xl overflow-y-auto transform translate-x-full transition-transform duration-300 lg:static lg:translate-x-0 lg:w-auto lg:bg-transparent lg:shadow-none lg:overflow-visible lg:dark:bg-transparent"
+                <div class="fixed inset-0 z-40 menu-overlay bg-secondary-900/50 backdrop-blur-sm lg:hidden" style="display: none;" aria-hidden="true"></div>
+                <nav class="menu-block fixed top-0 right-0 bottom-0 w-[280px] md:w-[320px] bg-white dark:bg-secondary-800 z-50 shadow-strong overflow-y-auto transform translate-x-full transition-transform duration-300 lg:static lg:translate-x-0 lg:w-auto lg:bg-transparent lg:shadow-none lg:overflow-visible lg:dark:bg-transparent"
                      id="append-menu-header"
                      role="navigation"
                      aria-label="Main navigation">
                     <!-- Mobile Menu Header -->
-                    <div class="flex items-center justify-between p-4 lg:hidden">
-                        <button class="flex items-center go-back text-primary-800 dark:text-white"
+                    <div class="flex items-center justify-between p-4 border-b border-secondary-200 lg:hidden">
+                        <button class="flex items-center gap-2 transition-colors go-back text-secondary-700 hover:text-primary-600"
                                 aria-label="Go back to previous menu">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                             </svg>
-                            <span>Back</span>
+                            <span class="font-medium">Back</span>
                         </button>
-                        <div class="font-medium current-menu-title text-primary-800 dark:text-white" aria-live="polite"></div>
-                        <button class="text-2xl cursor-pointer mobile-menu-close text-primary-800 dark:text-white"
+                        <div class="font-semibold current-menu-title text-secondary-800" aria-live="polite"></div>
+                        <button class="flex items-center justify-center w-8 h-8 text-2xl transition-colors rounded-lg cursor-pointer mobile-menu-close text-secondary-600 hover:bg-secondary-100 hover:text-primary-600"
                                 aria-label="Close navigation menu">
                             &times;
                         </button>
@@ -48,7 +53,7 @@
                         $menu = Menu::location('header');
                     @endphp
 
-                    <ul class="p-4 text-lg site-menu-main lg:p-0 lg:flex lg:items-center lg:space-x-1">
+                    <ul class="p-4 site-menu-main lg:p-0 lg:flex lg:items-center lg:gap-2">
                         @if($menu)
                             @foreach($menu->menuItems as $index => $item)
                                 @php
@@ -56,30 +61,29 @@
                                     $menuId = 'submenu-' . ($index + 1);
                                 @endphp
 
-                                <li class="nav-item mb-3 lg:mb-0 lg:relative {{ $hasChildren ? 'nav-item-has-children' : '' }}">
+                                <li class="mb-1 nav-item lg:mb-0 lg:relative {{ $hasChildren ? 'nav-item-has-children group' : '' }}">
                                     <a href="{{ $item->url }}"
-                                       class="nav-link-item flex items-center justify-between hover:text-primary-600 dark:text-white dark:hover:text-primary-200 header-nav-link font-medium py-2 lg:px-3 !text-secondary-600 lg:hover:bg-primary-600 lg:dark:hover:bg-primary-700 transition-colors {{ $hasChildren ? 'drop-trigger' : '' }}"
+                                       class="nav-link-item flex items-center justify-between text-secondary-700 hover:text-primary-600 header-nav-link font-medium py-3 lg:py-2 lg:px-4 rounded-xl lg:hover:bg-primary-50 transition-all duration-200 {{ $hasChildren ? 'drop-trigger' : '' }}"
                                        @if($item->target) target="{{ $item->target }}" @endif>
                                         <span>{{ $item->title }}</span>
                                         @if($hasChildren)
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 lg:h-5 lg:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                             </svg>
                                         @endif
                                     </a>
 
                                     @if($hasChildren)
-                                        <ul class="sub-menu pl-4 mt-2 lg:absolute lg:left-0 lg:top-full lg:mt-1 lg:pl-0 lg:min-w-[200px] lg:bg-white lg:dark:bg-primary-800 lg:shadow-lg lg:opacity-0 lg:invisible lg:transform lg:translate-y-2 lg:transition-all lg:group-hover:opacity-100 lg:group-hover:visible lg:group-hover:translate-y-0 lg:z-20" id="{{ $menuId }}">
+                                        <ul class="sub-menu pl-4 mt-1 space-y-1 lg:absolute lg:left-0 lg:top-full lg:mt-2 lg:pl-0 lg:min-w-[220px] lg:bg-white lg:dark:bg-secondary-800 lg:shadow-medium lg:rounded-xl lg:p-2 lg:opacity-0 lg:invisible lg:transform lg:translate-y-2 lg:transition-all lg:duration-200 lg:group-hover:opacity-100 lg:group-hover:visible lg:group-hover:translate-y-0 lg:z-20" id="{{ $menuId }}">
                                             @foreach($item->children as $childIndex => $childItem)
                                                 @php
                                                     $hasGrandchildren = count($childItem->children) > 0;
                                                     $submenuId = $menuId . '-' . ($childIndex + 1);
                                                 @endphp
 
-                                                <li class="sub-menu--item mb-2 lg:mb-0 {{ $hasGrandchildren ? 'nav-item-has-children' : '' }}">
+                                                <li class="sub-menu--item {{ $hasGrandchildren ? 'nav-item-has-children group' : '' }}">
                                                     <a href="{{ $childItem->url }}"
-                                                       class="block px-3 py-2 transition-colors text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-200 lg:text-primary-800 lg:hover:bg-primary-50 lg:dark:hover:bg-primary-700 lg:rounded"
-                                                       @if($hasGrandchildren) data-menu-get="h3" class="flex items-center justify-between drop-trigger" @endif
+                                                       class="block px-4 py-2.5 transition-all rounded-lg text-secondary-700 hover:text-primary-600 hover:bg-primary-50 {{ $hasGrandchildren ? 'flex items-center justify-between drop-trigger' : '' }}"
                                                        @if($childItem->target) target="{{ $childItem->target }}" @endif>
                                                         <span>{{ $childItem->title }}</span>
                                                         @if($hasGrandchildren)
@@ -90,11 +94,11 @@
                                                     </a>
 
                                                     @if($hasGrandchildren)
-                                                        <ul class="sub-menu pl-4 mt-2 lg:absolute lg:left-full lg:top-0 lg:pl-0 lg:mt-0 lg:min-w-[200px] lg:bg-white lg:dark:bg-primary-800 lg:shadow-lg lg:opacity-0 lg:invisible lg:transform lg:translate-x-2 lg:transition-all lg:group-hover:opacity-100 lg:group-hover:visible lg:group-hover:translate-x-0" id="{{ $submenuId }}">
+                                                        <ul class="sub-menu pl-4 mt-1 space-y-1 lg:absolute lg:left-full lg:top-0 lg:pl-0 lg:mt-0 lg:ml-2 lg:min-w-[220px] lg:bg-white lg:dark:bg-secondary-800 lg:shadow-medium lg:rounded-xl lg:p-2 lg:opacity-0 lg:invisible lg:transform lg:translate-x-2 lg:transition-all lg:duration-200 lg:group-hover:opacity-100 lg:group-hover:visible lg:group-hover:translate-x-0" id="{{ $submenuId }}">
                                                             @foreach($childItem->children as $grandchildItem)
-                                                                <li class="mb-2 sub-menu--item lg:mb-0">
+                                                                <li class="sub-menu--item">
                                                                     <a href="{{ $grandchildItem->url }}"
-                                                                       class="block px-3 py-2 transition-colors text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-200 lg:text-primary-800 lg:hover:bg-primary-50 lg:dark:hover:bg-primary-700 lg:rounded"
+                                                                       class="block px-4 py-2.5 transition-all rounded-lg text-secondary-700 hover:text-primary-600 hover:bg-primary-50"
                                                                        @if($grandchildItem->target) target="{{ $grandchildItem->target }}" @endif>
                                                                         {{ $grandchildItem->title }}
                                                                     </a>
@@ -111,11 +115,14 @@
                         @endif
 
                         <!-- Admin Panel Button for Mobile -->
-                        <li class="pt-4 mt-6 mb-4 nav-item lg:hidden">
+                        <li class="pt-4 mt-4 border-t nav-item border-secondary-200 lg:hidden">
                             <a href="admin/login" class="block w-full">
-                                <div class="relative px-4 py-3 text-sm font-medium text-center text-black transition-all duration-300 rounded-md bg-secondary-600 hover:bg-secondary-700">
+                                <button class="w-full btn btn-primary">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                    </svg>
                                     Admin Panel
-                                </div>
+                                </button>
                             </a>
                         </li>
                     </ul>
@@ -123,21 +130,25 @@
             </div>
 
             <!-- Header Event - Admin Panel Button for Desktop -->
-            <div class="flex items-center gap-4 md:gap-6">
-                <a href="admin/login" class="relative z-10 hidden sm:inline-block group">
-                    <div class="px-4 py-2 text-sm font-medium transition-all duration-300 btn md:text-base bg-secondary-600 hover:bg-secondary-700">Admin Panel</div>
-                    <div class="absolute inset-0 -z-10 translate-x-[3px] translate-y-[3px] bg-primary-700 transition-all duration-300 ease-linear group-hover:translate-x-0 group-hover:translate-y-0"></div>
+            <div class="flex items-center gap-3 md:gap-4">
+                <a href="admin/login" class="hidden sm:inline-block">
+                    <button class="btn btn-primary btn-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                        </svg>
+                        Admin Panel
+                    </button>
                 </a>
 
                 <div class="block lg:hidden">
                     <button id="openBtn"
-                            class="flex flex-col items-center justify-center w-10 h-10 rounded-md hamburger-menu mobile-menu-trigger focus:outline-none focus:ring-2 focus:ring-primary-600"
+                            class="flex flex-col items-center justify-center w-10 h-10 transition-all duration-200 rounded-lg hamburger-menu mobile-menu-trigger hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500"
                             aria-label="Open navigation menu"
                             aria-expanded="false"
                             aria-controls="append-menu-header">
-                        <span class="block w-6 h-0.5 bg-white dark:bg-white mb-1.5 transition-transform hamburger-line" aria-hidden="true"></span>
-                        <span class="block w-6 h-0.5 bg-white dark:bg-white mb-1.5 transition-opacity hamburger-line" aria-hidden="true"></span>
-                        <span class="block w-6 h-0.5 bg-white dark:bg-white transition-transform hamburger-line" aria-hidden="true"></span>
+                        <span class="block w-6 h-0.5 bg-primary-600 mb-1.5 transition-all duration-200 hamburger-line" aria-hidden="true"></span>
+                        <span class="block w-6 h-0.5 bg-primary-600 mb-1.5 transition-all duration-200 hamburger-line" aria-hidden="true"></span>
+                        <span class="block w-6 h-0.5 bg-primary-600 transition-all duration-200 hamburger-line" aria-hidden="true"></span>
                     </button>
                 </div>
             </div>
@@ -182,10 +193,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle scroll for header background
     function handleScroll() {
-        if (window.scrollY > 25) {
+        if (window.scrollY > 50) {
             header.classList.add('header-scrolled');
+            header.classList.remove('bg-white/80');
+            header.classList.add('bg-white', 'shadow-medium');
         } else {
-            header.classList.remove('header-scrolled');
+            header.classList.remove('header-scrolled', 'shadow-medium');
+            header.classList.add('bg-white/80', 'shadow-soft');
         }
     }
 
