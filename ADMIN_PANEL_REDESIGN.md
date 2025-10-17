@@ -396,6 +396,133 @@ Admin panel sekarang memiliki:
 }
 ```
 
+### 6. Custom Hamburger Collapse Button
+**File:** `resources/css/filament/admin/panel/sidebar.css`
+
+**Hamburger Button Features:**
+- **Custom X Icon**: Menggunakan CSS pseudo-elements untuk membuat ikon X yang jelas
+- **Green Theme**: Background hijau dengan hover effects
+- **Prominent Styling**: Tombol lebih besar (40x40px) dengan rounded corners dan shadow
+- **Smooth Animations**: Scale transform dan color transitions pada hover
+- **Better Visibility**: Lebih mudah dilihat dibandingkan ikon chevron kecil
+
+**CSS Implementation:**
+```css
+/* Custom hamburger collapse button styling */
+.fi-sidebar-header .fi-icon-btn[x-show*="sidebar.isOpen"] {
+  @apply relative bg-green-50 hover:bg-green-100 border border-green-200 rounded-lg p-2 transition-all duration-200 shadow-sm;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.fi-sidebar-header .fi-icon-btn[x-show*="sidebar.isOpen"]:before,
+.fi-sidebar-header .fi-icon-btn[x-show*="sidebar.isOpen"]:after {
+  content: '';
+  @apply absolute bg-green-600 transition-all duration-200;
+  width: 16px;
+  height: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.fi-sidebar-header .fi-icon-btn[x-show*="sidebar.isOpen"]:before {
+  top: 12px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+### 8. Default Collapsed Sidebar
+**Files:** 
+- `resources/css/filament/admin/panel/sidebar.css`
+- `resources/css/filament/admin/panel/layout.css`
+
+**Default State Behavior:**
+- **Collapsed by Default**: Sidebar dimuat dalam kondisi collapsed (72px width, icon-only)
+- **Main Content Optimized**: Konten utama menggunakan margin 72px untuk ruang maksimal
+- **Expand on Demand**: Klik tombol chevron untuk expand sidebar ke full width
+- **Consistent Experience**: Style yang sama seperti mobile collapsed mode
+
+**CSS Implementation:**
+```css
+/* Default collapsed appearance */
+.fi-sidebar {
+  width: 72px !important; /* Always start collapsed */
+}
+
+/* Hide text by default */
+.fi-sidebar .fi-sidebar-group-label,
+.fi-sidebar .fi-sidebar-item a span {
+  @apply opacity-0 invisible;
+}
+
+/* Default main content margin */
+.fi-main {
+  margin-left: 72px !important;
+}
+
+/* Expanded state when sidebar is open */
+.fi-sidebar.fi-sidebar-open {
+  width: var(--sidebar-width) !important;
+}
+
+.fi-sidebar.fi-sidebar-open ~ .fi-main {
+  margin-left: var(--sidebar-width) !important;
+}
+```
+
+---
+
+**Updated:** October 17, 2025
+**Version:** 1.0.0
+**Theme:** Green Booking/Reservation
+```
+
+### 7. Collapsed Sidebar Functionality
+**Files:**
+- `app/Providers/Filament/AdminPanelProvider.php`
+- `resources/css/filament/admin/panel/sidebar.css`
+- `resources/css/filament/admin/panel/layout.css`
+
+**Configuration Change:**
+```php
+// Added both methods for full functionality:
+->sidebarCollapsibleOnDesktop()
+->sidebarFullyCollapsibleOnDesktop()
+```
+
+**Collapsed State Features:**
+- **Icon-Only Mode**: Sidebar mengecil menjadi 72px width (hanya ikon)
+- **Hidden Text**: Label dan teks tersembunyi, hanya ikon yang terlihat
+- **Centered Icons**: Ikon navigation terpusat dalam button containers
+- **Main Content Expansion**: Konten utama melebar untuk mengisi ruang kosong
+- **Smooth Transitions**: Animasi smooth untuk collapse/expand
+- **Expand Button**: Tombol chevron untuk membuka sidebar dari collapsed state
+
+**CSS Implementation:**
+```css
+/* Collapsed sidebar state - Icon only mode */
+.fi-sidebar:not(.fi-sidebar-open) {
+  width: 72px !important;
+}
+
+/* Hide text in collapsed sidebar */
+.fi-sidebar:not(.fi-sidebar-open) .fi-sidebar-group-label,
+.fi-sidebar:not(.fi-sidebar-open) .fi-sidebar-item a span {
+  @apply opacity-0 invisible;
+}
+
+/* Main content adjusts to collapsed sidebar */
+.fi-sidebar:not(.fi-sidebar-open) ~ .fi-main {
+  margin-left: 72px !important;
+}
+
+/* Expand button styling in collapsed state */
+.fi-sidebar:not(.fi-sidebar-open) .fi-sidebar-header .fi-icon-btn[x-show*="sidebar.isOpen"] {
+  @apply bg-green-50 hover:bg-green-100 border border-green-200 rounded-lg p-2;
+  width: 40px !important;
+  height: 40px !important;
+}
+```
+
 ---
 
 **Updated:** October 17, 2025

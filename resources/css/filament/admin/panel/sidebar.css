@@ -71,6 +71,21 @@
   @apply border-r border-gray-200 dark:border-gray-800;
 }
 
+/* Collapsed sidebar width on desktop */
+@media (min-width: 1024px) {
+  .fi-sidebar:not(.fi-sidebar-open) {
+    width: 4rem;
+  }
+
+  .fi-sidebar:not(.fi-sidebar-open) .fi-sidebar-item a > span {
+    display: none;
+  }
+
+  .fi-sidebar:not(.fi-sidebar-open) .fi-sidebar-group-label {
+    display: none;
+  }
+}
+
 .fi-sidebar-header {
   @apply py-4 !ring-0 !shadow-none sticky top-0 z-10;
   background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.03) 0%, rgba(255, 255, 255, 0.95) 100%);
