@@ -48,6 +48,7 @@ class AdminPanelProvider extends PanelProvider
             ->font('Inter')
             ->databaseNotifications()->databaseNotificationsPolling('30s')
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
+            ->spa()
             ->sidebarCollapsibleOnDesktop()
             ->navigationGroups([
                 Navigation\NavigationGroup::make()
