@@ -39,7 +39,7 @@
     border-right: 1px solid rgba(var(--primary-rgb), 0.1);
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
   }
-  
+
   .dark .fi-sidebar {
     background: rgba(15, 20, 25, 0.98) !important;
     border-right: 1px solid rgba(var(--primary-rgb), 0.3);
@@ -51,7 +51,7 @@
   .fi-sidebar {
     width: 280px !important;
   }
-  
+
   .fi-sidebar.fi-sidebar-open {
     width: 280px !important;
   }
@@ -61,7 +61,7 @@
   .fi-sidebar {
     width: 260px !important;
   }
-  
+
   .fi-sidebar.fi-sidebar-open {
     width: 260px !important;
   }
@@ -285,7 +285,7 @@
     @apply translate-x-0;
     width: 280px !important;
   }
-  
+
   /* Close button positioning for mobile */
   .fi-sidebar-header .fi-icon-btn:last-child {
     @apply flex lg:hidden;

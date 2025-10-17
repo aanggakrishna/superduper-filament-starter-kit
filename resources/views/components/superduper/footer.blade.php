@@ -241,7 +241,7 @@
             <div class="container-default">
                 <div class="flex flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
                     <p class="text-sm text-white/70">
-                        &copy; {{ date('Y') }} {{ $generalSettings->brand_name ?? $siteSettings->name ?? config('app.name', 'SuperDuper') }}. 
+                        &copy; {{ date('Y') }} {{ $generalSettings->brand_name ?? $siteSettings->name ?? config('app.name', 'SuperDuper') }}.
                         {{ $siteSettings->copyright_text ?? 'All Rights Reserved' }}
                     </p>
                     <div class="flex items-center gap-6 text-sm">
